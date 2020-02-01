@@ -127,12 +127,13 @@ You have now created a new theme called **mytheme** and set up the streams so th
 You can then provide just the files you need, including **JS**, **CSS**, or even modifications to **Twig template files** if you wish.
 In order to modify specific **SCSS** files, we need to use a little configuration magic for the SCSS compiler so it knows to look in your new `mytheme` location first, then `antimatter` second. This requires a couple of things.
 
-1. First, you need to copy over the main SCSS file from antimatter that contains all the `@import` calls for various sub files, including the `template/_custom.scss`. So, copy the `template.scss` file from `antimatter/scss/` to `mytheme/scss/` folder.
+1. First, you need to copy over the main SCSS file from antimatter that contains all the `@import` calls for various sub files, including the `template/_custom.scss`. So, copy the `template.scss` file from `antimatter/scss/` to `mytheme/scss/` folder. Make sure to change the paths to point to the original antimatter folder, e.g. `../../antimatter/scss/template/modules/base";
 2. Run the SCSS compiler and provide it with a `load-path` that points to the `antimatter/scss/` folder that will contain the bulk of the SCSS files:
    [prism classes="language-bash command-line"]
    scss --load-path ../antimatter/scss --watch scss:css-compiled
    [/prism]
-3. The next step is to create a file located at `mytheme/scss/template/_custom.scss`. This is where your modifications will go.
+3. The next step is to create a file located at `mytheme/scss/template/_custom.scss`. This is where your modifications will go. 
+4. Note that the order of the `@import` calls matters e.g. if you want to change the vatriable `$pg-background` to change the page background color, you will have to redefine it immediately after it's called and before it is applied in later scss files.
 
 When you make changes in your custom SCSS file, all the SCSS will be recompiled into `mytheme/css-compiled/template.css` and automatically referenced correctly by Grav.
 
